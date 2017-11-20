@@ -1,2 +1,3 @@
 this is a second line from master.
 this is a test from master
+this is from feature 1
