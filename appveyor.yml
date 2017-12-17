@@ -1,0 +1,121 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.2.3.{build}
+
+# branches to build
+branches:
+  only:
+    - master
+
+# Do not build on tags (GitHub and BitBucket)
+skip_tags: true
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2015
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf true
+  - ps: $env:GIT_HASH=$env:APPVEYOR_REPO_COMMIT.Substring(0, 10)
+
+# fetch repository as zip archive
+shallow_clone: true                 # default is "false"
+
+# clone directory
+clone_folder: c:\projects\veyortests
+
+# environment variables
+environment:
+  MY_VARIABLE: foobar
+
+# scripts that run after cloning repository
+install:
+- cmd: echo INSTALL SCRIPT RUNNING!
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+#platform: x86
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+# to add several configurations to build matrix:
+#configuration:
+#  - Debug
+#  - Release
+
+build:
+  project: msvc\bin2cpp.sln
+  verbosity: minimal
+  
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# to run your custom scripts instead of automatic tests
+test_script:
+- cmd: call c:\projects\bin2cpp\ci\appveyor\test_script.bat
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+- path: msvc\bin2cppTest.x86.release.xml
+  name: bin2cppTest.x86.release.xml
+- path: nsis\bin\*.zip
+  name: bin2cpp win32 portable
+- path: nsis\bin\*.exe
+  name: bin2cpp win32 setup
+  
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+deploy:
+
+  # Deploy to GitHub Releases
+- provider: GitHub
+  #tag: v$(APPVEYOR_BUILD_VERSION)-win32
+  tag: v$(PRODUCT_VERSION)-win32
+  #release: bin2cpp-v$(APPVEYOR_BUILD_VERSION)-win32
+  release: bin2cpp-v$(PRODUCT_VERSION)-win32
+  description: Latest successful AppVeyor CI builds of branch '$(APPVEYOR_REPO_BRANCH)', commit $(APPVEYOR_REPO_COMMIT)
+  auth_token:
+    secure: BgyLisMc154qWpkyBdh8OD+D9HMM+YnBkh7H4MEUShKO3aCU+Fn/XVGJ07fTsRmH
+  artifact: /(.*\.zip|.*\.exe)/
+  draft: false     #make the binaries seen by public
+  prerelease: true
+  force_update: true
+
+#---------------------------------#
+#         notifications           #
+#---------------------------------#
+
+notifications:
+- provider: Email
+  to:
+  - end2endzone@gmail.com
+  subject: 'Build {{status}}'                  # optional
+  message: "{{message}}, {{commitId}}, ..."    # optional
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+/foobar/*.sdf
+/foobar/*.suo
+/foobar/Release
+/foobar/Debug
+/foobar/ipch
+/foobar/foobar/Debug
+/foobar/foobar/Release
+/foobar/foobar/*.user
