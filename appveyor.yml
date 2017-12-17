@@ -44,6 +44,8 @@ environment:
 # scripts that run after cloning repository
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
+- cmd: set
+- cmd: call ci\appveyor\override_build_version.bat
 
 #---------------------------------#
 #       build configuration       #
@@ -71,6 +73,7 @@ build:
 # to run your custom scripts instead of automatic tests
 test_script:
 - cmd: echo RUNNING TESTS!
+- cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -91,7 +94,7 @@ deploy:
   # Deploy to GitHub Releases
 - provider: GitHub
   tag: v$(APPVEYOR_BUILD_VERSION)-win32
-  release: bin2cpp-v$(APPVEYOR_BUILD_VERSION)-win32
+  release: $(APPVEYOR_PROJECT_NAME)-v$(APPVEYOR_BUILD_VERSION)-win32
   description: Latest successful AppVeyor CI builds of branch '$(APPVEYOR_REPO_BRANCH)', commit $(APPVEYOR_REPO_COMMIT)
   auth_token:
     secure: BgyLisMc154qWpkyBdh8OD+D9HMM+YnBkh7H4MEUShKO3aCU+Fn/XVGJ07fTsRmH
