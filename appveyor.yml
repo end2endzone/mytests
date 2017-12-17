@@ -9,7 +9,7 @@
 #---------------------------------#
 
 # version format
-version: 1.2.3.{build}
+version: 1.2.3
 
 # branches to build
 branches:
@@ -45,7 +45,8 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: set
-- cmd: call ci\appveyor\override_build_version.bat
+#- cmd: call ci\appveyor\override_build_version.bat
+- ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
 
 #---------------------------------#
 #       build configuration       #
@@ -74,13 +75,14 @@ build:
 test_script:
 - cmd: echo RUNNING TESTS!
 - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
+- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%.exe 
 
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
-- path: foobar\Release\foobar.exe
+- path: foobar\Release\*.exe
   name: foobar binary
   
 #---------------------------------#
@@ -93,8 +95,8 @@ deploy:
 
   # Deploy to GitHub Releases
 - provider: GitHub
-  tag: v$(APPVEYOR_BUILD_VERSION)-win32
-  release: $(APPVEYOR_PROJECT_NAME)-v$(APPVEYOR_BUILD_VERSION)-win32
+  tag: $(GITHUB_TAG_NAME)
+  release: $(GITHUB_RELEASE_NAME)
   description: Latest successful AppVeyor CI builds of branch '$(APPVEYOR_REPO_BRANCH)', commit $(APPVEYOR_REPO_COMMIT)
   auth_token:
     secure: BgyLisMc154qWpkyBdh8OD+D9HMM+YnBkh7H4MEUShKO3aCU+Fn/XVGJ07fTsRmH
@@ -102,3 +104,7 @@ deploy:
   draft: true
   prerelease: true
   force_update: true
+
+  
+#investigate having 2 github provider for Nightly build of branch 'foo'
+#see details at https://github.com/ASOS/OctopusStepTemplateCi/blob/master/appveyor.yml
