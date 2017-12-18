@@ -2,10 +2,12 @@ Write-Output "Running override_build_version.ps1..."
 Write-Output "Current branch: $env:APPVEYOR_REPO_BRANCH"
 Write-Output "Current build version: $env:APPVEYOR_BUILD_VERSION"
 If ("$env:APPVEYOR_REPO_BRANCH" -eq "master") {
-  $env:APPVEYOR_BUILD_VERSION -match "^(?<major>\d+)(\.(?<minor>\d+))?(\.(?<patch>\d+))?(\-(?<pre>[0-9A-Za-z\-\.]+))?(\+(?<build>[0-9A-Za-z\-\.]+))?$" | Out-Null
-  $major = [int]$matches['major']
-  $minor = [int]$matches['minor']
-  $patch = [int]$matches['patch']
+  $major, $minor, $patch, $build = ([regex]$env:APPVEYOR_BUILD_VERSION).matches("^(?<major>\d+)(\.(?<minor>\d+))?(\.(?<patch>\d+))?(\-(?<pre>[0-9A-Za-z\-\.]+))?(\+(?<build>[0-9A-Za-z\-\.]+))?$")
+  
+  ## $env:APPVEYOR_BUILD_VERSION -match "^(?<major>\d+)(\.(?<minor>\d+))?(\.(?<patch>\d+))?(\-(?<pre>[0-9A-Za-z\-\.]+))?(\+(?<build>[0-9A-Za-z\-\.]+))?$" | Out-Null
+  #$major = [int]$matches['major']
+  #$minor = [int]$matches['minor']
+  #$patch = [int]$matches['patch']
   
   #Strip out build number from $env:APPVEYOR_BUILD_VERSION
   $env:APPVEYOR_BUILD_VERSION = "$major.$minor.$patch"
