@@ -2,6 +2,8 @@ Write-Output "Running override_build_version.ps1..."
 Write-Output "Current branch: $env:APPVEYOR_REPO_BRANCH"
 Write-Output "Current build version: $env:APPVEYOR_BUILD_VERSION"
 If ("$env:APPVEYOR_REPO_BRANCH" -eq "master") {
+  Write-Output "Building from master branch. Downgrading APPVEYOR_PROJECT_NAME environment variable."
+
   $major, $minor, $patch, $build = $env:APPVEYOR_BUILD_VERSION.Split(".")
   
   #Strip out build number from $env:APPVEYOR_BUILD_VERSION

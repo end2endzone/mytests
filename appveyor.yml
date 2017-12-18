@@ -75,7 +75,8 @@ build:
 test_script:
 - cmd: echo RUNNING TESTS!
 - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
-- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%.exe 
+- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%_%RANDOM%.exe 
+- cmd: dir /b foobar\Release\foobar*.exe
 
 #---------------------------------#
 #      artifacts configuration    #
