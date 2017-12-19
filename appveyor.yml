@@ -105,8 +105,8 @@ deploy:
   auth_token:
     secure: BgyLisMc154qWpkyBdh8OD+D9HMM+YnBkh7H4MEUShKO3aCU+Fn/XVGJ07fTsRmH
   artifact: /(.*\.zip|.*\.exe)/
-  draft: false
-  prerelease: true
+  draft: false           #true means release is private (visible to contributors only), false is public (visible to everyone)
+  prerelease: true       #true for prerelease, false to identify this release as the 'latest release'
   force_update: true
   
 #investigate having 2 github provider for Nightly build of branch 'foo'
