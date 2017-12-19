@@ -9,6 +9,8 @@
 #---------------------------------#
 
 # version format
+# version must contains build number to make sure that all commits are processed by appveyor.
+# If build number is not part of the version than appveyor build fails with the following message: "Build version x.y.z already exists."
 version: 1.2.3.{build}
 
 # branches to build
@@ -46,6 +48,7 @@ install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: set
 #- cmd: call ci\appveyor\override_build_version.bat
+- ps: .\ci\appveyor\build_version_split.ps1
 - ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
 
 #---------------------------------#
@@ -75,7 +78,7 @@ build:
 test_script:
 - cmd: echo RUNNING TESTS!
 - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
-- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%_%RANDOM%.exe 
+- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%.exe 
 - cmd: dir /b foobar\Release\foobar*.exe
 
 #---------------------------------#
@@ -105,7 +108,6 @@ deploy:
   draft: false
   prerelease: true
   force_update: true
-
   
 #investigate having 2 github provider for Nightly build of branch 'foo'
 #see details at https://github.com/ASOS/OctopusStepTemplateCi/blob/master/appveyor.yml
