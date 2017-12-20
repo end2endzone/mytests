@@ -17,7 +17,7 @@ Else
 
   Write-Output "Downgrading APPVEYOR_BUILD_VERSION environment variable to '$env:APPVEYOR_BUILD_VERSION'"
   
-  $env:GITHUB_TAG_NAME="nightly"
+  $env:GITHUB_TAG_NAME="nightly-$env:APPVEYOR_REPO_BRANCH"    # allow 1 public nightly build per branch
   $env:GITHUB_RELEASE_NAME="Nightly build (branch $env:APPVEYOR_REPO_BRANCH)"
 }
 Write-Output "APPVEYOR_BUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
