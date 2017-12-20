@@ -96,8 +96,6 @@ artifacts:
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
 deploy:
-
-  # Deploy to GitHub Releases
 - provider: GitHub
   tag: $(GITHUB_TAG_NAME)
   release: $(GITHUB_RELEASE_NAME)
@@ -108,6 +106,3 @@ deploy:
   draft: false           #true means release is private (visible to contributors only), false is public (visible to everyone)
   prerelease: true       #true for prerelease, false to identify this release as the 'latest release'
   force_update: true
-  
-#investigate having 2 github provider for Nightly build of branch 'foo'
-#see details at https://github.com/ASOS/OctopusStepTemplateCi/blob/master/appveyor.yml
