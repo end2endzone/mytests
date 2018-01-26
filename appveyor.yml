@@ -80,6 +80,7 @@ test_script:
 - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
 - cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%.exe 
 - cmd: dir /b foobar\Release\foobar*.exe
+- cmd: call c:\projects\veyortests\test_autocrlf.bat
 
 #---------------------------------#
 #      artifacts configuration    #
