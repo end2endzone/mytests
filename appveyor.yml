@@ -89,11 +89,11 @@ test_script:
 artifacts:
 - path: foobar\Release\*.exe
   name: foobar binary
-- path: c:\projects\veyortests\test_true\README_true.md
+- path: test_true\README_true.md
   name: README_true.md
-- path: c:\projects\veyortests\test_true\README_input.md
+- path: test_true\README_input.md
   name: README_input.md
-- path: c:\projects\veyortests\test_true\README_false.md
+- path: test_true\README_false.md
   name: README_false.md
   
 #---------------------------------#
