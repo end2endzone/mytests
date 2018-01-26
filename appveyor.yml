@@ -91,9 +91,9 @@ artifacts:
   name: foobar binary
 - path: test_true\README_true.md
   name: README_true.md
-- path: test_true\README_input.md
+- path: test_input\README_input.md
   name: README_input.md
-- path: test_true\README_false.md
+- path: test_false\README_false.md
   name: README_false.md
   
 #---------------------------------#
