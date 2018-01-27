@@ -27,9 +27,6 @@
 *.lib
 
 # Executables
-*.exe
-*.out
-*.app
 /foobar/*.sdf
 /foobar/*.suo
 /foobar/Release

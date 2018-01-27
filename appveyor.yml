@@ -100,6 +100,12 @@ artifacts:
   name: README_false.md
 - path: textfile.txt
   name: textfile.txt
+- path: textfile.bin
+  name: textfile.bin
+- path: textfile.exe
+  name: textfile.exe
+- path: textfile.md
+  name: textfile.md
   
 #---------------------------------#
 #     deployment configuration    #
