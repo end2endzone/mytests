@@ -32,6 +32,8 @@ image: Visual Studio 2015
 init:
   - cmd: git config --global core.autocrlf true
   - cmd: git config --get core.autocrlf
+  - cmd: git config --global core.eol crlf
+  - cmd: git config --get core.eol
   - ps: $env:GIT_HASH=$env:APPVEYOR_REPO_COMMIT.Substring(0, 10)
 
 # fetch repository as zip archive
@@ -96,6 +98,8 @@ artifacts:
   name: README_input.md
 - path: test_false\README_false.md
   name: README_false.md
+- path: textfile.txt
+  name: textfile.txt
   
 #---------------------------------#
 #     deployment configuration    #
