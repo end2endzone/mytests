@@ -34,9 +34,6 @@ init:
   - git config --get core.autocrlf
   - ps: $env:GIT_HASH=$env:APPVEYOR_REPO_COMMIT.Substring(0, 10)
 
-# fetch repository as zip archive
-shallow_clone: false                 # false to download a git repository. true to download this commit as a zip archive. default is "false"
-
 # clone directory
 clone_folder: c:\projects\veyortests
 
