@@ -47,6 +47,7 @@ environment:
 # scripts that run after cloning repository
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
+- cmd: call .\ci\appveyor\force_text_crlf.bat
 - ps: .\ci\appveyor\build_version_split.ps1
 - ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
 
