@@ -49,8 +49,6 @@ environment:
 # scripts that run after cloning repository
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
-- cmd: set
-#- cmd: call ci\appveyor\override_build_version.bat
 - ps: .\ci\appveyor\build_version_split.ps1
 - ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
 
@@ -99,13 +97,13 @@ artifacts:
 - path: test_false\README_false.md
   name: README_false.md
 - path: textfile.txt
-  name: textfile.txt
-- path: textfile.bin
-  name: textfile.bin
-- path: textfile.exe
-  name: textfile.exe
-- path: textfile.md
-  name: textfile.md
+  name: root textfile.txt
+- path: test_true\textfile.txt
+  name: textfile true.txt
+- path: test_input\textfile.txt
+  name: textfile input.txt
+- path: test_false\textfile.txt
+  name: textfile false.txt
   
 #---------------------------------#
 #     deployment configuration    #
