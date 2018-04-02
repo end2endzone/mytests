@@ -2,8 +2,6 @@ Param(
   [Parameter(Mandatory=$True)]
   [string]$name,
   [Parameter(Mandatory=$True)]
-  [string]$version,
-  [Parameter(Mandatory=$True)]
   [string]$installpath,
   [Parameter(Mandatory=$True)]
   [string]$url
@@ -26,7 +24,6 @@ function DeleteIfExists($path)
   }
 }
 DeleteIfExists -Path "$installpath\$name"
-DeleteIfExists -Path "$installpath\$name-version"
 Write-Host "Done."
 Write-Host ""
 
@@ -42,7 +39,7 @@ Write-Host "Download completed sucessfully."
 Write-Host ""
 
 ############################################
-# Search
+# Search zip
 ############################################
 function FindZipRootFolderName($file)
 {
