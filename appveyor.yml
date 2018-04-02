@@ -47,8 +47,8 @@ install:
 #- cmd: call .\ci\appveyor\force_text_crlf.bat
 - ps: .\ci\appveyor\build_version_split.ps1
 - ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
-- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -version "2.0.0.37" -installpath "c:\projects\veyortests\third_parties" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
-- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -version "1.6.0"    -installpath "c:\projects\veyortests\third_parties" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
+- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_parties" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
+- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -installpath "c:\projects\veyortests\third_parties" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
 
 #---------------------------------#
 #       build configuration       #

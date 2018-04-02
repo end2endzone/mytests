@@ -24,19 +24,13 @@ function DeleteIfExists($path)
   }
 }
 DeleteIfExists -Path "$installpath\$name"
-Write-Host "Done."
-Write-Host ""
 
 ############################################
 # Download
 ############################################
 $tempfile = "$env:temp\$name.tmp.zip"
-Write-Host "Downloading $name zip package:"
-Write-Host "  from $url"
-Write-Host "  to file '$tempfile'"
+Write-Host "Downloading $name zip archive from '$url' to file '$tempfile'..."
 (New-Object System.Net.WebClient).DownloadFile($url, $tempfile)
-Write-Host "Download completed sucessfully."
-Write-Host ""
 
 ############################################
 # Search zip
@@ -52,14 +46,12 @@ function FindZipRootFolderName($file)
   return ""
 }
 $zipRootFolderName = FindZipRootFolderName -File $tempfile
-Write-Host "Found folder '$zipRootFolderName' in zip archive..."
+Write-Host "Found folder '$zipRootFolderName' in zip archive."
 
 ############################################
 # Unzip
 ############################################
-Write-Host "Extracting zip content:"
-Write-Host "  file '$tempfile'"
-Write-Host "  to directory '$installpath'"
+Write-Host "Extracting zip archive to directory '$installpath'..."
 function Expand-ZIPFile($file, $destination)
 {
   $shell = new-object -com shell.application
@@ -70,24 +62,18 @@ function Expand-ZIPFile($file, $destination)
   }
 }
 Expand-ZIPFile -File $tempfile -Destination $installpath
-Write-Host "Extraction completed sucessfully."
-Write-Host ""
 
 ############################################
 # Delete temp.zip file
 ############################################
 Write-Host "Deleting temporary zip file."
 $command_output = Remove-Item –path $tempfile –recurse
-Write-Host "Done."
-Write-Host ""
 
 ############################################
 # Rename actual file
 ############################################
-Write-Host "Renaming folder '$zipRootFolderName' to '$name'."
+Write-Host "Renaming folder '$zipRootFolderName' to '$name'..."
 $command_output = Rename-Item -Path "$installpath\$zipRootFolderName" -NewName $name
-Write-Host "Done."
-Write-Host ""
 
 ############################################
 # Define package HOME variable.
@@ -97,7 +83,6 @@ $envname = $envname.ToUpper()
 $envvalue = "$installpath\$name"
 Write-Host "Setting environment variable '$envname' to value '$envvalue'."
 [Environment]::SetEnvironmentVariable($envname, $envvalue, "User")
-Write-Host "Done."
-Write-Host ""
 
+Write-Host "GitHub release '$name' installed without error."
 exit 0
