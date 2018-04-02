@@ -6,7 +6,7 @@ Param(
   [Parameter(Mandatory=$True)]
   [string]$installpath,
   [Parameter(Mandatory=$True)]
-  [string]$url,
+  [string]$url
 )
 
 $tempfile = "$installpath\temp.zip"
@@ -27,8 +27,6 @@ function DeleteIfExists($path)
     $command_output = Remove-Item –Path "$path" –recurse
   }
 }
-# $command_output = Remove-Item –path "$installpath\$name" –recurse
-# $command_output = Remove-Item –path "$installpath\$name-version" –recurse
 DeleteIfExists -Path "$installpath\$name"
 DeleteIfExists -Path "$installpath\$name-version"
 Write-Host "Done."
