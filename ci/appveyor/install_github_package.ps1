@@ -9,17 +9,15 @@ Param(
   [string]$url
 )
 
-$tempfile = "$installpath\temp.zip"
-
 ############################################
 # Create installation directory
 ############################################
 $command_output = New-Item -ItemType Directory -Force -Path $installpath
 
 ############################################
-# Delete previous folder
+# Delete previous installations
 ############################################
-Write-Host "Deleting previous library installations..."
+Write-Host "Deleting previous $name installations..."
 function DeleteIfExists($path)
 {
   if ( Test-Path $path -PathType Container )
@@ -33,6 +31,9 @@ Write-Host "Done."
 Write-Host ""
 
 ############################################
+# Download
+############################################
+$tempfile = "$env:temp\$name.tmp.zip"
 Write-Host "Downloading $name zip package:"
 Write-Host "  from $url"
 Write-Host "  to file '$tempfile'"
@@ -40,6 +41,24 @@ Write-Host "  to file '$tempfile'"
 Write-Host "Download completed sucessfully."
 Write-Host ""
 
+############################################
+# Search
+############################################
+function FindZipRootFolderName($file)
+{
+  $shell = new-object -com shell.application
+  $zip = $shell.NameSpace($file)
+  foreach($item in $zip.items())
+  {
+    return $item.Name
+  }
+  return ""
+}
+$zipRootFolderName = FindZipRootFolderName -File $tempfile
+Write-Host "Found folder '$zipRootFolderName' in zip archive..."
+
+############################################
+# Unzip
 ############################################
 Write-Host "Extracting zip content:"
 Write-Host "  file '$tempfile'"
@@ -68,8 +87,8 @@ Write-Host ""
 ############################################
 # Rename actual file
 ############################################
-Write-Host "Renaming extracted folder to library name."
-$command_output = Rename-Item -Path "$installpath\$name-$version" -NewName $name
+Write-Host "Renaming folder '$zipRootFolderName' to '$name'."
+$command_output = Rename-Item -Path "$installpath\$zipRootFolderName" -NewName $name
 Write-Host "Done."
 Write-Host ""
 
