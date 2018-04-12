@@ -45,11 +45,7 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 #- cmd: call .\ci\appveyor\force_text_crlf.bat
-- cmd: curl -fsS -o c:\projects\veyortests\apache-ant-1.10.2-bin.zip "http://archive.apache.org/dist/ant/binaries/apache-ant-1.10.2-bin.zip"
-- cmd: 7z x c:\projects\veyortests\apache-ant-1.10.2-bin.zip "-oC:\Program Files (x86)\ant"
-- cmd: set ANT_HOME=C:\Program Files (x86)\ant\apache-ant-1.10.2
-- cmd: set Path=%Path%;%ANT_HOME%\bin
-- cmd: call ant --version
+- cmd: call .\ci\appveyor\ant_install.bat
 - ps: .\ci\appveyor\build_version_split.ps1
 - ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
 - ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
