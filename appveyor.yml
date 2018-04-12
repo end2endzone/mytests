@@ -45,7 +45,7 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 #- cmd: call .\ci\appveyor\force_text_crlf.bat
-- ps: .\ci\appveyor\wget.ps1 -Path c:\projects\veyortests -Url "https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.2-bin.zip"
+- ps: .\ci\appveyor\wget.ps1 -Path c:\projects\veyortests\apache-ant-1.10.2-bin.zip -Url "https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.2-bin.zip"
 - cmd: 7z x c:\projects\veyortests\apache-ant-1.10.2-bin.zip "-oC:\Program Files (x86)\ant"
 - cmd: set ANT_HOME=C:\Program Files (x86)\ant
 - cmd: set Path=%Path%;%ANT_HOME%/bin
