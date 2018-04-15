@@ -12,9 +12,9 @@ env:
 
 before_install:
 - echo Java version is...
-- java -version
+  java -version
 - echo Apache Ant version is...
-- ant -version
+  ant -version
 - env
 script:
 - echo THIS IS SCRIPT!
