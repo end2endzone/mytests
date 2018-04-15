@@ -1,0 +1,22 @@
+dist: trusty
+sudo: false
+language: cpp
+os:
+- linux
+before_install:
+- echo Java version is...
+- java -version
+- echo Apache Ant version is...
+- ant -version
+script:
+- echo THIS IS SCRIPT!
+after_success:
+- echo THIS IS AFTER SUCCESS!
+branches:
+  only:
+  - master
+notifications:
+  email: true
+env:
+  global:
+  - PROJECT_NAME=test
