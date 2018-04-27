@@ -18,7 +18,7 @@ before_install:
 - env
 script:
 - echo THIS IS SCRIPT!
-- cd foobar; #fail on purpose.
+- ls myfoobar >nul 2>nul || true; #do not fail build even if command fails.
 
 after_success:
 - echo THIS IS AFTER SUCCESS!
