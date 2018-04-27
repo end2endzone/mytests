@@ -18,6 +18,8 @@ before_install:
 - env
 script:
 - echo THIS IS SCRIPT!
+- cd foobar; #fail on purpose.
+
 after_success:
 - echo THIS IS AFTER SUCCESS!
 
