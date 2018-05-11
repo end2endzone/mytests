@@ -19,9 +19,9 @@ function toSemVerObject($versionStr)
 }
  
  
-################################
+################################################################
 # TESTS
-################################
+################################################################
 # $versionStr = @(
 #   "1.0.0-alpha",
 #   "1.0.0-alpha.1",
@@ -61,13 +61,36 @@ function Resolve-AbsolutePath{
     $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($path)
 }
 
-################################
-# Read content of file `/version`
-################################
+################################################################
+# Debug
+################################################################
+$location = Get-Location
+Write-Output "location: '$location'"
+$relativePath = Get-Item "..\..\version" | Resolve-Path -Relative
+Write-Output "relativePath: '$relativePath'"
+$ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+Write-Output "ScriptDir: '$ScriptDir'"
+Function Get-AbsolutePath {
+    param([string]$Path)
+    
+    [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-Location).ProviderPath, $Path));
+}
+$MyAbsolutePath = Get-AbsolutePath -Path "."
+Write-Output "MyAbsolutePath: '$MyAbsolutePath'"
+$test1 = get-location -PSProvider filesystem | select -exp path;
+Write-Output "test1: '$test1'"
+$test2 = Split-Path $script:MyInvocation.MyCommand.Path
+Write-Output "test2: '$test2'"
+Write-Output ""
+
+
+################################################################
+# Read content of file product version file
+################################################################
 
 $ScriptName = $MyInvocation.MyCommand.Name
 $filepath = Resolve-AbsolutePath -Path "$ScriptName\..\..\..\version"
-Write-Output "Using file '$filepath'"
+Write-Output "Parsing version from file '$filepath'"
 
 # Read project version and save as environment variable for future use.
 $env:PRODUCT_VERSION = Get-Content -Path $filepath
