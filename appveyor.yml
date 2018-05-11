@@ -47,6 +47,7 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
+- ps: .\ci\appveyor\debug.ps1
 - ps: .\ci\appveyor\read_version.ps1
 - ps: .\ci\appveyor\prepare_github_deploy.ps1
 #- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"

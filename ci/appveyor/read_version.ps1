@@ -46,8 +46,7 @@ function toSemVerObject($versionStr)
 # }
 # 
 
-# based off of http://mnaoumov.wordpress.com/2013/08/21/powershell-resolve-path-safe/
-function Resolve-AbsolutePath{
+Function Get-AbsolutePath-From-CurrentScript {
     [cmdletbinding()]
     param
     (
@@ -55,41 +54,20 @@ function Resolve-AbsolutePath{
             Mandatory=$true,
             Position=0,
             ValueFromPipeline=$true)]
-        [string] $path
+        [string] $Path
     )
-     
-    $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($path)
-}
-
-################################################################
-# Debug
-################################################################
-$location = Get-Location
-Write-Output "location: '$location'"
-$relativePath = Get-Item "..\..\version" | Resolve-Path -Relative
-Write-Output "relativePath: '$relativePath'"
-$ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-Write-Output "ScriptDir: '$ScriptDir'"
-Function Get-AbsolutePath {
-    param([string]$Path)
     
-    [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-Location).ProviderPath, $Path));
+    $ParentDir = Split-Path -Path $script:MyInvocation.MyCommand.Path -Parent
+    
+    [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($ParentDir, $Path));
 }
-$MyAbsolutePath = Get-AbsolutePath -Path "."
-Write-Output "MyAbsolutePath: '$MyAbsolutePath'"
-$test1 = get-location -PSProvider filesystem | select -exp path;
-Write-Output "test1: '$test1'"
-$test2 = Split-Path $script:MyInvocation.MyCommand.Path
-Write-Output "test2: '$test2'"
-Write-Output ""
 
 
 ################################################################
 # Read content of file product version file
 ################################################################
 
-$ScriptName = $MyInvocation.MyCommand.Name
-$filepath = Resolve-AbsolutePath -Path "$ScriptName\..\..\..\version"
+$filepath = Get-AbsolutePath-From-CurrentScript -Path "..\..\version"
 Write-Output "Parsing version from file '$filepath'"
 
 # Read project version and save as environment variable for future use.
