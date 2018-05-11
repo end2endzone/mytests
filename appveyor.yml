@@ -47,8 +47,11 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
+- cmd: echo TEST 1
 - ps: .\ci\appveyor\read_version.ps1
+- cmd: echo TEST 2
 - ps: .\ci\appveyor\prepare_github_deploy.ps1
+- cmd: echo TEST 3
 #- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
 #- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
 
