@@ -5,10 +5,6 @@ $location = Get-Location
 Write-Output "Get-Location: '$location'"
 Write-Output ""
 
-$relativePath = Get-Item "..\..\version" | Resolve-Path -Relative
-Write-Output "relativePath: '$relativePath'"
-Write-Output ""
-
 $ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 Write-Output "ScriptDir: '$ScriptDir'"
 Write-Output ""
