@@ -11,7 +11,9 @@
 # version format
 # version must contains build number to make sure that all commits are processed by appveyor.
 # If build number is not part of the version than appveyor build fails with the following message: "Build version x.y.z already exists."
-version: 1.2.3.{build}
+#version: 1.2.3.{build}
+#version: "{build}"
+version: "{branch} (#{build})"
 
 # branches to build
 branches:
@@ -44,12 +46,11 @@ environment:
 # scripts that run after cloning repository
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
-#- cmd: call .\ci\appveyor\force_text_crlf.bat
 - cmd: call .\ci\appveyor\ant_install.bat
-- ps: .\ci\appveyor\build_version_split.ps1
-- ps: .\ci\appveyor\override_build_version.ps1 -Target AppVeyor
-- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
-- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
+- ps: .\ci\appveyor\read_version.ps1
+- ps: .\ci\appveyor\prepare_github_deploy.ps1
+#- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
+#- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
 
 #---------------------------------#
 #       build configuration       #
@@ -78,9 +79,8 @@ build:
 test_script:
 - cmd: echo RUNNING TESTS!
 - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
-- cmd: ren foobar\Release\foobar.exe foobar_v%APPVEYOR_BUILD_VERSION%.exe 
+- cmd: ren foobar\Release\foobar.exe foobar_v%PRODUCT_VERSION%.exe 
 - cmd: dir /b foobar\Release\foobar*.exe
-- cmd: call c:\projects\veyortests\test_autocrlf.bat
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -89,20 +89,6 @@ test_script:
 artifacts:
 - path: foobar\Release\*.exe
   name: foobar binary
-- path: test_true\README_true.md
-  name: README_true.md
-- path: test_input\README_input.md
-  name: README_input.md
-- path: test_false\README_false.md
-  name: README_false.md
-- path: textfile.txt
-  name: root textfile.txt
-- path: test_true\textfile.txt
-  name: textfile true.txt
-- path: test_input\textfile.txt
-  name: textfile input.txt
-- path: test_false\textfile.txt
-  name: textfile false.txt
   
 #---------------------------------#
 #     deployment configuration    #

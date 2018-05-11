@@ -46,11 +46,30 @@ function toSemVerObject($versionStr)
 # }
 # 
 
+# based off of http://mnaoumov.wordpress.com/2013/08/21/powershell-resolve-path-safe/
+function Resolve-FullPath{
+    [cmdletbinding()]
+    param
+    (
+        [Parameter(
+            Mandatory=$true,
+            Position=0,
+            ValueFromPipeline=$true)]
+        [string] $path
+    )
+     
+    $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($path)
+}
+
 ################################
 # Read content of file `/version`
 ################################
 
-$tmp = Get-Content -Path "F:\Projets\Programmation\Git\veyortests\master\version"
+$filepath = Resolve-FullPath -Path "..\..\version"
+
+# Read project version and save as environment variable for future use.
+$env:PRODUCT_VERSION = Get-Content -Path $filepath
+
 $versionObj = toSemVerObject($tmp)
 $env:SEMVER_MAJOR = $versionObj.Major
 $env:SEMVER_MINOR = $versionObj.Minor
@@ -58,6 +77,7 @@ $env:SEMVER_PATCH = $versionObj.Patch
 $env:SEMVER_PRE = $versionObj.Pre
 $env:SEMVER_META = $versionObj.Meta
 
+# Write-Output "$env:PRODUCT_VERSION"
 # Write-Output "$env:SEMVER_MAJOR"
 # Write-Output "$env:SEMVER_MINOR"
 # Write-Output "$env:SEMVER_PATCH"
