@@ -47,7 +47,7 @@ function toSemVerObject($versionStr)
 # 
 
 # based off of http://mnaoumov.wordpress.com/2013/08/21/powershell-resolve-path-safe/
-function Resolve-FullPath{
+function Resolve-AbsolutePath{
     [cmdletbinding()]
     param
     (
@@ -65,7 +65,8 @@ function Resolve-FullPath{
 # Read content of file `/version`
 ################################
 
-$filepath = Resolve-FullPath -Path "..\..\version"
+$ScriptName = $MyInvocation.MyCommand.Name
+$filepath = Resolve-AbsolutePath -Path "$ScriptName\..\..\..\version"
 Write-Output "Using file '$filepath'"
 
 # Read project version and save as environment variable for future use.

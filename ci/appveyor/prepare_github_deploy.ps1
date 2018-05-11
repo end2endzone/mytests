@@ -15,12 +15,8 @@ If ("$env:APPVEYOR_REPO_BRANCH".contains("prerelease")) {
   Write-Output "Tagging each commits with a unique version..."
   Write-Output "Deploying each commits to GitHub..."
 
-  # Read product value
-  $version_file = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("..\..\version") #resolve relative to absolute path
-  $product_version = Get-Content -Path $version_file
-  
-  $env:GITHUB_TAG_NAME="v$product_version"
-  $env:GITHUB_RELEASE_NAME="$env:APPVEYOR_PROJECT_NAME-v$product_version"
+  $env:GITHUB_TAG_NAME="v$env:PRODUCT_VERSION"
+  $env:GITHUB_RELEASE_NAME="$env:APPVEYOR_PROJECT_NAME-v$env:PRODUCT_VERSION"
 }
 Else
 {
