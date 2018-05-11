@@ -66,11 +66,13 @@ function Resolve-FullPath{
 ################################
 
 $filepath = Resolve-FullPath -Path "..\..\version"
+Write-Output "Using file '$filepath'"
 
 # Read project version and save as environment variable for future use.
 $env:PRODUCT_VERSION = Get-Content -Path $filepath
+Write-Output "Found product version '$env:PRODUCT_VERSION'"
 
-$versionObj = toSemVerObject($tmp)
+$versionObj = toSemVerObject($env:PRODUCT_VERSION)
 $env:SEMVER_MAJOR = $versionObj.Major
 $env:SEMVER_MINOR = $versionObj.Minor
 $env:SEMVER_PATCH = $versionObj.Patch
