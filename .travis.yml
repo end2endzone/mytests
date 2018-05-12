@@ -18,6 +18,9 @@ before_install:
 - env
 script:
 - echo THIS IS SCRIPT!
+- export foo=bar
+- echo bar=$foo
+- head -1 $PWD/version
 - export product_version=$(head -1 $PWD/version)
 - echo Found product version: $product_version
 - ls myfoobar >nul 2>nul || true; #do not fail build even if command fails.
