@@ -20,13 +20,14 @@ before_install:
 script:
 - echo THIS IS SCRIPT!
 - product_version=$(head -1 $PWD/version)
-- echo $product_version;
+- echo $product_version
+- ls myfoobar >nul 2>nul || true; #do not fail build even if command fails.
+
 #- product_version=$(head -1 $PWD/version);
 #  echo "export product_version=$product_version" > version.sh;
 #- echo $product_version;
 #  source version.sh;
 #  echo $product_version;
-- ls myfoobar >nul 2>nul || true; #do not fail build even if command fails.
 
 after_success:
 - echo THIS IS AFTER SUCCESS!
