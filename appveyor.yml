@@ -58,7 +58,7 @@ install:
 - ps: .\ci\appveyor\hello.ps1 -Name Tony
 - ps: . "$env:APPVEYOR_BUILD_FOLDER\ci\appveyor\hello.ps1" -Name Thor
 #FAILS: - ps: $env:APPVEYOR_BUILD_FOLDER\ci\appveyor\hello.ps1 -Name Peter
-- ps: $(APPVEYOR_BUILD_FOLDER)\ci\appveyor\hello.ps1 -Name Steve
+#FAILS: - ps: $(APPVEYOR_BUILD_FOLDER)\ci\appveyor\hello.ps1 -Name Steve
 
 #---------------------------------#
 #       build configuration       #
