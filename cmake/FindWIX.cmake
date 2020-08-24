@@ -19,7 +19,7 @@
 if (WIN32)
   # Define possible search locations in the registry
   set(_WIX_ROOT_HINTS
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows Installer XML\\3.11;InstallFolder")
+    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows Installer XML;InstallFolder")
 
   # Search for directories matching 'WiX Toolset*' in both Program Files directories.
   file(GLOB _WIX_DIRECTORIES_X64 "C:/Program Files/WiX Toolset*")

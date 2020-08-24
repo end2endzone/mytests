@@ -48,15 +48,16 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
-- cmd: echo Searching Wix Toolset in path...
-- cmd: where candle.exe || true
-- cmd: where light.exe || true
-- cmd: echo Searching Wix Toolset install directory...
-- cmd: cd /d "c:\Program Files (x86)" && dir/a/s/b *wix*
-- cmd: dir /b "c:\Program Files (x86)\WiX Toolset v3.11\bin"
+#- cmd: echo Searching Wix Toolset in path...
+#- cmd: where candle.exe || true
+#- cmd: where light.exe || true
+#- cmd: echo Searching Wix Toolset install directory...
+#- cmd: cd /d "c:\Program Files (x86)" && dir/a/s/b *wix*
+#- cmd: dir /b "c:\Program Files (x86)\WiX Toolset v3.11\bin"
 - cmd: echo Searching Wix Toolset registry...
 - cmd: reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows Installer XML" /s
 - cmd: call %APPVEYOR_BUILD_FOLDER%\ci\appveyor\list_env_var.bat
+- cmd: call %APPVEYOR_BUILD_FOLDER%\ci\appveyor\build_cmake.bat
 
 #---------------------------------#
 #       build configuration       #
