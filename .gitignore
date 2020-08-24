@@ -35,3 +35,4 @@
 /foobar/foobar/Debug
 /foobar/foobar/Release
 /foobar/foobar/*.user
+/build
