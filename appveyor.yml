@@ -48,9 +48,10 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
-- cmd: echo Searching Wix Toolset
-- cmd: cd /d c:\ && dir/ad/s/b *wix*
-- ps: .\ci\appveyor\debug.ps1
+- cmd: echo Searching Wix Toolset install directory...
+- cmd: cd /d "c:\Program Files (x86)" && dir/a/s/b *wix*
+- cmd: echo Searching Wix Toolset registry...
+- cmd: reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows Installer XML" /s
 - ps: .\ci\appveyor\read_version.ps1
 - ps: .\ci\appveyor\prepare_github_deploy.ps1
 - cmd: call .\ci\appveyor\list_env_var.bat
