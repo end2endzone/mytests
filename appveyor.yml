@@ -48,6 +48,8 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
+- cmd: echo Searching Wix Toolset
+- cmd: cd /d c:\ && dir/ad/s/b *wix*
 - ps: .\ci\appveyor\debug.ps1
 - ps: .\ci\appveyor\read_version.ps1
 - ps: .\ci\appveyor\prepare_github_deploy.ps1
