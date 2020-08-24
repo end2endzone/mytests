@@ -48,20 +48,14 @@ environment:
 install:
 - cmd: echo INSTALL SCRIPT RUNNING!
 - cmd: call .\ci\appveyor\ant_install.bat
+- cmd: echo Searching Wix Toolset in path...
+- cmd: where candle.exe
+- cmd: where light.exe
 - cmd: echo Searching Wix Toolset install directory...
 - cmd: cd /d "c:\Program Files (x86)" && dir/a/s/b *wix*
 - cmd: echo Searching Wix Toolset registry...
 - cmd: reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows Installer XML" /s
-- ps: .\ci\appveyor\read_version.ps1
-- ps: .\ci\appveyor\prepare_github_deploy.ps1
 - cmd: call .\ci\appveyor\list_env_var.bat
-#- ps: .\ci\appveyor\install_github_package.ps1 -name "win32Arduino" -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/end2endzone/win32Arduino/zip/v2.0.0.37"
-#- ps: .\ci\appveyor\install_github_package.ps1 -name "googletest"   -installpath "c:\projects\veyortests\third_party" -url "http://codeload.github.com/google/googletest/zip/release-1.6.0"
-#Testing absolute path with PowerShell scripts:
-- ps: .\ci\appveyor\hello.ps1 -Name Tony
-- ps: . "$env:APPVEYOR_BUILD_FOLDER\ci\appveyor\hello.ps1" -Name Thor
-#FAILS: - ps: $env:APPVEYOR_BUILD_FOLDER\ci\appveyor\hello.ps1 -Name Peter
-#FAILS: - ps: $(APPVEYOR_BUILD_FOLDER)\ci\appveyor\hello.ps1 -Name Steve
 
 #---------------------------------#
 #       build configuration       #
