@@ -35,7 +35,7 @@ if (WIN32)
     ${_WIX_DIRECTORIES_X86}
     ${_WIX_DIRECTORIES_X64}
   )
-  message("_WIX_ROOT_PATHS=" "${_WIX_ROOT_PATHS}")
+  #message("_WIX_ROOT_PATHS=" "${_WIX_ROOT_PATHS}")
   
   # Search for the ROOT installation directory
   find_path(WIX_ROOT_PATH
@@ -47,7 +47,7 @@ if (WIN32)
       ${_WIX_ROOT_PATHS}
   )
   mark_as_advanced(WIX_ROOT_PATH)
-  message("WIX_ROOT_PATH=" "${WIX_ROOT_PATH}")
+  #message("WIX_ROOT_PATH=" "${WIX_ROOT_PATH}")
   
   if (WIX_ROOT_PATH)
     set(WIX_BIN_DIR ${WIX_ROOT_PATH}/bin)
@@ -60,7 +60,7 @@ if (WIN32)
     PATHS
       ${WIX_BIN_DIR}
   )
-  message("WIX_CANDLE=" "${WIX_CANDLE}")
+  #message("WIX_CANDLE=" "${WIX_CANDLE}")
   mark_as_advanced(WIX_CANDLE)
   find_program(WIX_LIGHT
     NAMES
@@ -68,7 +68,7 @@ if (WIN32)
     PATHS
       ${WIX_BIN_DIR}
   )
-  message("WIX_LIGHT=" "${WIX_LIGHT}")
+  #message("WIX_LIGHT=" "${WIX_LIGHT}")
   mark_as_advanced(WIX_LIGHT)
 endif (WIN32)
 
