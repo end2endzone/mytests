@@ -46,8 +46,8 @@ environment:
 
 # scripts that run after cloning repository
 install:
-- cmd: echo INSTALL SCRIPT RUNNING!
-- cmd: call .\ci\appveyor\ant_install.bat
+#- cmd: echo INSTALL SCRIPT RUNNING!
+#- cmd: call .\ci\appveyor\ant_install.bat
 #- cmd: echo Searching Wix Toolset in path...
 #- cmd: where candle.exe || true
 #- cmd: where light.exe || true

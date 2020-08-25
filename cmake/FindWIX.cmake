@@ -28,8 +28,8 @@ if (WIN32)
   # Define know directory locations where it could be installed.
   set(_WIX_ROOT_PATHS
     "$ENV{WIX}"
-    ${_WIX_DIRECTORIES_X86}
-    ${_WIX_DIRECTORIES_X64}
+    "${_WIX_DIRECTORIES_X86}"
+    "${_WIX_DIRECTORIES_X64}"
   )
   message("_WIX_ROOT_PATHS=" "${_WIX_ROOT_PATHS}")
   
@@ -38,9 +38,9 @@ if (WIN32)
     NAMES
       bin/candle.exe
     HINTS
-      ${_WIX_ROOT_HINTS}
+      "${_WIX_ROOT_HINTS}"
     PATHS
-      ${_WIX_ROOT_PATHS}
+      "${_WIX_ROOT_PATHS}"
   )
   mark_as_advanced(WIX_ROOT_PATH)
   message("WIX_ROOT_PATH=" "${WIX_ROOT_PATH}")
@@ -54,7 +54,7 @@ if (WIN32)
     NAMES
       candle
     PATHS
-      ${WIX_BIN_DIR}
+      "${WIX_BIN_DIR}"
   )
   message("WIX_CANDLE=" "${WIX_CANDLE}")
   mark_as_advanced(WIX_CANDLE)
@@ -62,7 +62,7 @@ if (WIN32)
     NAMES
       light
     PATHS
-      ${WIX_BIN_DIR}
+      "${WIX_BIN_DIR}"
   )
   message("WIX_LIGHT=" "${WIX_LIGHT}")
   mark_as_advanced(WIX_LIGHT)
